@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreData
+import SDWebImage
 
 extension CryptoDetailViewController{
     func loadDetailData(){
@@ -37,8 +38,9 @@ extension CryptoDetailViewController{
     
     func formatStringData(){
         let rankVar = String(selectedCrypto.first?.cmc_rank ?? 0)
-        
-        //logo.image = selectedCrypto.first?.logo
+        let url = String(selectedCrypto.first?.logo ?? "N/A")
+        let imageUrl:URL? = URL(string: url)
+        logo.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "genericLogo.png"))
         name.text = selectedCrypto.first?.name
         symbol.text = "(\(selectedCrypto.first?.symbol ?? "N/A"))"
         dayChange.text = String(format:"(%.2f%%)", Float(selectedCrypto.first?.percent_change_24h ?? 0.0))

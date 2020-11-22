@@ -3,12 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		CC5E36F32568D0CA000E5C2E /* CryptoDetailViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5E36F22568D0C9000E5C2E /* CryptoDetailViewControllerExtension.swift */; };
 		CC6A7F3F25660B8A0092C69D /* CryptoTableViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC6A7F3E25660B8A0092C69D /* CryptoTableViewControllerExtension.swift */; };
+		CC9DD9C2256B04CD00CBC48D /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = CC9DD9C1256B04CD00CBC48D /* SDWebImage */; };
+		CC9DD9C4256B04CD00CBC48D /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = CC9DD9C3256B04CD00CBC48D /* SDWebImageMapKit */; };
 		CCB2DED4255A155A00F95561 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DED3255A155A00F95561 /* AppDelegate.swift */; };
 		CCB2DED6255A155A00F95561 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DED5255A155A00F95561 /* SceneDelegate.swift */; };
 		CCB2DED8255A155A00F95561 /* CryptoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DED7255A155A00F95561 /* CryptoTableViewController.swift */; };
@@ -49,6 +51,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC9DD9C4256B04CD00CBC48D /* SDWebImageMapKit in Frameworks */,
+				CC9DD9C2256B04CD00CBC48D /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -158,6 +162,10 @@
 			dependencies = (
 			);
 			name = "Crypto Tracker";
+			packageProductDependencies = (
+				CC9DD9C1256B04CD00CBC48D /* SDWebImage */,
+				CC9DD9C3256B04CD00CBC48D /* SDWebImageMapKit */,
+			);
 			productName = "Crypto Tracker";
 			productReference = CCB2DED0255A155A00F95561 /* Crypto Tracker.app */;
 			productType = "com.apple.product-type.application";
@@ -177,7 +185,7 @@
 				};
 			};
 			buildConfigurationList = CCB2DECB255A155A00F95561 /* Build configuration list for PBXProject "Crypto Tracker" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 12.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -185,6 +193,9 @@
 				Base,
 			);
 			mainGroup = CCB2DEC7255A155A00F95561;
+			packageReferences = (
+				CC9DD9C0256B04CD00CBC48D /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = CCB2DED1255A155A00F95561 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -425,6 +436,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CC9DD9C0256B04CD00CBC48D /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CC9DD9C1256B04CD00CBC48D /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC9DD9C0256B04CD00CBC48D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		CC9DD9C3256B04CD00CBC48D /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CC9DD9C0256B04CD00CBC48D /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		CCB2DEEE255A189200F95561 /* Crypto_Tracker.xcdatamodeld */ = {

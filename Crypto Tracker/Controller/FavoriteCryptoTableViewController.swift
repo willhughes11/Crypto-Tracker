@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import CoreData
+import SDWebImage
 
 class FavoriteCryptoTableView: UITableViewController {
     
@@ -25,7 +26,6 @@ class FavoriteCryptoTableView: UITableViewController {
         super.viewWillAppear(true)
         getWatchlistCryptos()
         loadTableCell()
-        tableView.reloadData()
     }
 
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -63,8 +63,6 @@ class FavoriteCryptoTableView: UITableViewController {
                     }
                 }
             }
-            
-            //let id = self.cellData.map{$0.id}
             self.cellData = self.cellData.filter{ self.watchlistIds.contains($0.id)}
 
             self.loading = false
@@ -101,7 +99,8 @@ class FavoriteCryptoTableView: UITableViewController {
             if loading {
             } else {
                 let crypto = cellData[indexPath.row]
-                //cell.logo.image = crypto.logo
+                let imageUrl:URL? = URL(string: crypto.logo)
+                cell.logo.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "genericLogo.png"))
                 cell.symbol.text = crypto.symbol
                 cell.name.text = crypto.name
                 numberFormatter.numberStyle = .currency

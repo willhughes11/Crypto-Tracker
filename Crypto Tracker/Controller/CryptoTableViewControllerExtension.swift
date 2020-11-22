@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 extension CryptoTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -26,7 +27,8 @@ extension CryptoTableViewController {
         if loading {
         } else {
             let crypto = cellData[indexPath.row]
-            //cell.logo.image = crypto.logo
+            let imageUrl:URL? = URL(string: crypto.logo)
+            cell.logo.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "genericLogo.png"))
             cell.symbol.text = crypto.symbol
             cell.name.text = crypto.name
             numberFormatter.numberStyle = .currency
