@@ -44,7 +44,7 @@
             </objects>
             <point key="canvasLocation" x="637" y="427"/>
         </scene>
-        <!--Favorites-->
+        <!--Watchlist-->
         <scene sceneID="RzP-L7-9VA">
             <objects>
                 <tableViewController id="zEW-hi-Mz2" customClass="FavoriteCryptoTableView" customModule="Crypto_Tracker" customModuleProvider="target" sceneMemberID="viewController">
@@ -192,7 +192,7 @@
                     <tabBarItem key="tabBarItem" id="Q7j-JL-KSY">
                         <color key="badgeColor" name="AccentColor"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" title="Favorites" id="e6b-Vv-mEZ"/>
+                    <navigationItem key="navigationItem" title="Watchlist" id="e6b-Vv-mEZ"/>
                     <connections>
                         <segue destination="DcG-rO-qes" kind="show" identifier="selectedCrypto" id="PLs-Em-uuh"/>
                     </connections>

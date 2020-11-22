@@ -1,16 +1,15 @@
 //
-//  CryptoTableViewControllerExtension.swift
+//  FavoriteCryptoTableViewControllerExtension.swift
 //  Crypto Tracker
 //
-//  Created by William K Hughes on 11/18/20.
+//  Created by William K Hughes on 11/22/20.
 //
 
 import Foundation
 import UIKit
-import SDWebImage
+import CoreData
 
-extension CryptoTableViewController {
-    
+extension FavoriteCryptoTableView {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if loading{
             return 1
@@ -69,13 +68,12 @@ extension CryptoTableViewController {
                 cell.hourChange.font = UIFont(name:"HelveticaNeue-Bold",size: 18.0)
                 cell.dayChange.font = UIFont(name:"HelveticaNeue-Bold",size: 18.0)
                 cell.weekChange.font = UIFont(name:"HelveticaNeue-Bold",size: 18.0)
-            
+                
                 setColor(label: cell.hourChange)
                 setColor(label: cell.dayChange)
                 setColor(label: cell.weekChange)
             }
         }
-        
         return cell
     }
     
@@ -96,7 +94,7 @@ extension CryptoTableViewController {
     }
 }
 
-extension CryptoTableViewController: UISearchResultsUpdating {
+extension FavoriteCryptoTableView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContentForSearchText(searchBar.text!)
