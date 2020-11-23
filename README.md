@@ -27,3 +27,7 @@ This app uses the sandbox CoinMarketCap API Endpoint and Key. This app makes a l
 * SDWebImage
 ## CoinMarketCap API
 The CoinMarketCap API was used to make this app, https://coinmarketcap.com/api/
+### Endpoints Used
+* https://pro-api.coinmarketcap.com/v1/cryptocurrency/info
+* https://pro-api.coinmarketcap.com/v1/cryptocurrency/map
+* https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest
