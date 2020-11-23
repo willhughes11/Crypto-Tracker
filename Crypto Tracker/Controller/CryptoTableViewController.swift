@@ -17,6 +17,7 @@ class CryptoTableViewController: UITableViewController {
     var loading = true
     var filteredCryptos: [TableCellData] = []
     var returnValue = true
+    var indicator = UIActivityIndicatorView(style: .large)
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -24,6 +25,7 @@ class CryptoTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator()
         loadTableCell()
         searchBarParams()
     }
@@ -32,7 +34,10 @@ class CryptoTableViewController: UITableViewController {
         CryptoClient.getTableCellData(completionHandler: { data, error in
             self.cellData = data
             self.loading = false
+            
             DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
                 self.tableView.reloadData()
             }
         })
@@ -48,12 +53,24 @@ class CryptoTableViewController: UITableViewController {
         }
     }
     
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 50, width: 100, height: 100))
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+        
+        if(self.loading == true){
+            self.indicator.startAnimating()
+            self.indicator.backgroundColor = .white
+        }
+    }
+    
     func filterContentForSearchText(_ searchText: String){
         filteredCryptos = self.cellData.filter{ (cellData: TableCellData) -> Bool in
             return cellData.name.lowercased().contains(searchText.lowercased())
         }
         filteredCryptos += self.cellData.filter{(cellData: TableCellData) -> Bool in
-            if(cellData.symbol != cellData.name.prefix(3).uppercased()){
+            if(cellData.name.lowercased().contains(cellData.symbol.lowercased()) == false){
                 self.returnValue = cellData.symbol.lowercased().contains(searchText.lowercased())
             } else{
                 self.returnValue = false
@@ -66,5 +83,7 @@ class CryptoTableViewController: UITableViewController {
     var isFiltering: Bool {
       return searchController.isActive && !isSearchBarEmpty
     }
+    
+    
 }
 

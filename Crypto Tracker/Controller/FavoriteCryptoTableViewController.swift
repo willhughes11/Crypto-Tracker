@@ -22,6 +22,7 @@ class FavoriteCryptoTableView: UITableViewController {
     var watchlistIds: [Int] = []
     var filteredCryptos: [TableCellData] = []
     var returnValue = true
+    var indicator = UIActivityIndicatorView(style: .large)
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -30,6 +31,7 @@ class FavoriteCryptoTableView: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator()
         searchBarParams()
     }
     
@@ -74,6 +76,8 @@ class FavoriteCryptoTableView: UITableViewController {
 
             self.loading = false
             DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
                 self.tableView.reloadData()
             }
         })
@@ -89,12 +93,24 @@ class FavoriteCryptoTableView: UITableViewController {
         }
     }
     
+    func activityIndicator() {
+        indicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 50, width: 100, height: 100))
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.center = self.view.center
+        self.view.addSubview(indicator)
+        
+        if(self.loading == true){
+            self.indicator.startAnimating()
+            self.indicator.backgroundColor = .white
+        }
+    }
+    
     func filterContentForSearchText(_ searchText: String){
         filteredCryptos = self.cellData.filter{ (cellData: TableCellData) -> Bool in
             return cellData.name.lowercased().contains(searchText.lowercased())
         }
         filteredCryptos += self.cellData.filter{(cellData: TableCellData) -> Bool in
-            if(cellData.symbol != cellData.name.prefix(3).uppercased()){
+            if(cellData.name.lowercased().contains(cellData.symbol.lowercased()) == false){
                 self.returnValue = cellData.symbol.lowercased().contains(searchText.lowercased())
             } else{
                 self.returnValue = false

@@ -31,7 +31,7 @@ class CMCClient {
         var stringValue: String {
             switch self {
             case .allCrytptos: return
-                "\(Endpoints.testBase)/map?CMC_PRO_API_KEY=\(Auth.testKey)&limit=200&sort=cmc_rank"
+                "\(Endpoints.testBase)/map?CMC_PRO_API_KEY=\(Auth.testKey)&limit=1250&sort=cmc_rank"
             case .cryptoDetails(let id): return
                 "\(Endpoints.testBase)/info?CMC_PRO_API_KEY=\(Auth.testKey)&id=\(id)"
             case .cryptoQuoteLatest(let id): return
