@@ -58,12 +58,9 @@ class CMCClient {
         let request = URLRequest(url: Endpoints.allCrytptos.url)
         let task = URLSession.shared.dataTask(with: request, completionHandler: { [self] data, response, error in
             if (error != nil){
-                print("Network Issue")
+                print("Error")
                 DispatchQueue.main.async {
-                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
-                    let okButton = UIAlertAction(title: "Okay", style: .default, handler: nil)
-                    alertController.addAction(okButton)
-                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.present(alertController, animated: true, completion: nil)
+                    completionHandler(nil, error)
                 }
             }
         guard let data = data, error == nil else {
@@ -105,6 +102,12 @@ class CMCClient {
         let cryptoString = cryptoTrackerId.joined(separator: ",")
         let request = URLRequest(url: Endpoints.cryptoDetails(cryptoString).url)
         let task = URLSession.shared.dataTask(with: request, completionHandler: { data, resonse, error in
+            if (error != nil){
+                print("Network Issue")
+                DispatchQueue.main.async {
+                    completionHandler(nil, error)
+                }
+            }
             guard let data = data, error == nil else {
                 return
             }
@@ -133,6 +136,12 @@ class CMCClient {
             let cryptoString = cryptoTrackerId.joined(separator: ",")
             let request = URLRequest(url: Endpoints.cryptoQuoteLatest(cryptoString).url)
             let task = URLSession.shared.dataTask(with: request, completionHandler: { data, response, error in
+                if (error != nil){
+                    print("Network Issue")
+                    DispatchQueue.main.async {
+                        completionHandler(nil, error)
+                    }
+                }
                 guard let data = data, error == nil else {
                     return
                 }
@@ -155,37 +164,42 @@ class CMCClient {
     
     //MARK: - Table Cell Data Functions
     
-    func getTableCellData(completionHandler: @escaping ([TableCellData], Error?) -> Void){
+    func getTableCellData(completionHandler: @escaping ([TableCellData]?, Error?) -> Void){
         var cellData = [TableCellData]()
         self.getAllCryptoIds(){idData,error in
             self.cryptoTrackerId = idData ?? ["1"]
             self.allCryptoDetails(){detailData, error in
                 self.getCryptoQuoteData(){quoteData, error in
-                    for i in 0...self.cryptoTrackerId.count-1{
-                        self.numString = String(self.cryptoTrackerId[i])
-                                let data = TableCellData(id: Int(detailData?.data[self.numString]?.id ?? 0),
-                                                         symbol: String(detailData?.data[self.numString]?.symbol ?? "N/A"),
-                                                         name: String(detailData?.data[self.numString]?.name ?? "N/A"),
-                                                         logo: String(detailData?.data[self.numString]?.logo ?? "N/A"),
-                                                         description: detailData?.data[self.numString]?.description ?? "N/A",
-                                                         cmc_rank: Int(quoteData?.data[self.numString]?.cmc_rank ?? 0),
-                                                         website: String(detailData?.data[self.numString]?.urls?.website?.first ?? "N/A"),
-                                                         source_code: String(detailData?.data[self.numString]?.urls?.source_code?.first ?? "N/A"),
-                                                         message_board: String(detailData?.data[self.numString]?.urls?.message?.first ?? "N/A"),
-                                                         technical_doc: String(detailData?.data[self.numString]?.urls?.technical_doc?.first ?? "N/A"),
-                                                         category: String(detailData?.data[self.numString]?.category ?? "N/A"),
-                                                         circulating_supply: Int(quoteData?.data[self.numString]?.circulating_supply ?? 0),
-                                                         price: Float(quoteData?.data[self.numString]?.quote["USD"]?.price ?? 0.0),
-                                                         volume_24h: Float(quoteData?.data[self.numString]?.quote["USD"]?.volume_24h ?? 0.0),
-                                                         percent_change_1h: Float(quoteData?.data[self.numString]?.quote["USD"]?.percent_change_1h ?? 0.0),
-                                                         percent_change_24h: Float(quoteData?.data[self.numString]?.quote["USD"]?.percent_change_24h ?? 0.0),
-                                                         percent_change_7d: Float(quoteData?.data[self.numString]?.quote["USD"]?.percent_change_7d ?? 0.0),
-                                                         market_cap: Float(quoteData?.data[self.numString]?.quote["USD"]?.market_cap ?? 0.0),
-                                                         max_supply: Float(quoteData?.data[self.numString]?.max_suppy ?? 0.0),
-                                                         total_supply: Float(quoteData?.data[self.numString]?.total_supply ?? 0.0))
-                                cellData.append(data)
-                                }
-                    completionHandler(cellData, nil)
+                    if (error != nil){
+                        print("Error")
+                        completionHandler(nil, error)
+                    } else {
+                        for i in 0...self.cryptoTrackerId.count-1{
+                            self.numString = String(self.cryptoTrackerId[i])
+                                    let data = TableCellData(id: Int(detailData?.data[self.numString]?.id ?? 0),
+                                                             symbol: String(detailData?.data[self.numString]?.symbol ?? "N/A"),
+                                                             name: String(detailData?.data[self.numString]?.name ?? "N/A"),
+                                                             logo: String(detailData?.data[self.numString]?.logo ?? "N/A"),
+                                                             description: detailData?.data[self.numString]?.description ?? "N/A",
+                                                             cmc_rank: Int(quoteData?.data[self.numString]?.cmc_rank ?? 0),
+                                                             website: String(detailData?.data[self.numString]?.urls?.website?.first ?? "N/A"),
+                                                             source_code: String(detailData?.data[self.numString]?.urls?.source_code?.first ?? "N/A"),
+                                                             message_board: String(detailData?.data[self.numString]?.urls?.message?.first ?? "N/A"),
+                                                             technical_doc: String(detailData?.data[self.numString]?.urls?.technical_doc?.first ?? "N/A"),
+                                                             category: String(detailData?.data[self.numString]?.category ?? "N/A"),
+                                                             circulating_supply: Int(quoteData?.data[self.numString]?.circulating_supply ?? 0),
+                                                             price: Float(quoteData?.data[self.numString]?.quote["USD"]?.price ?? 0.0),
+                                                             volume_24h: Float(quoteData?.data[self.numString]?.quote["USD"]?.volume_24h ?? 0.0),
+                                                             percent_change_1h: Float(quoteData?.data[self.numString]?.quote["USD"]?.percent_change_1h ?? 0.0),
+                                                             percent_change_24h: Float(quoteData?.data[self.numString]?.quote["USD"]?.percent_change_24h ?? 0.0),
+                                                             percent_change_7d: Float(quoteData?.data[self.numString]?.quote["USD"]?.percent_change_7d ?? 0.0),
+                                                             market_cap: Float(quoteData?.data[self.numString]?.quote["USD"]?.market_cap ?? 0.0),
+                                                             max_supply: Float(quoteData?.data[self.numString]?.max_suppy ?? 0.0),
+                                                             total_supply: Float(quoteData?.data[self.numString]?.total_supply ?? 0.0))
+                                    cellData.append(data)
+                                    }
+                        completionHandler(cellData, nil)
+                    }
                 }
             }
         }

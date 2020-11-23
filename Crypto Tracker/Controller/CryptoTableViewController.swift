@@ -42,7 +42,11 @@ class CryptoTableViewController: UITableViewController {
     
     func loadTableCell(){
         CryptoClient.getTableCellData(completionHandler: { data, error in
-            self.cellData = data
+            if(error != nil){
+                self.showError(title: "Error", message: (error?.localizedDescription)!)
+            } else{
+            
+            self.cellData = data!
             self.loading = false
             
             DispatchQueue.main.async {
@@ -50,6 +54,7 @@ class CryptoTableViewController: UITableViewController {
                 self.indicator.hidesWhenStopped = true
                 self.tableView.reloadData()
             }
+        }
         })
     }
     
@@ -111,4 +116,6 @@ class CryptoTableViewController: UITableViewController {
         alertController.addAction(okButton)
         present(alertController, animated: true, completion: nil)
     }
+    
+    //MARK: - IBActions
 }

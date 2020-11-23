@@ -73,10 +73,10 @@ class FavoriteCryptoTableView: UITableViewController {
             if (error != nil) {
                 self.showAlert()
             }
-            for i in 0...data.count-1{
-                if(self.watchlistIds.contains(data[i].id)){
-                    if(self.cellData.contains(where: {$0.id == data[i].id}) == false){
-                        self.cellData.append(data[i])
+            for i in 0...data!.count-1{
+                if(self.watchlistIds.contains((data?[i].id)!)){
+                    if(self.cellData.contains(where: {$0.id == data?[i].id}) == false){
+                        self.cellData.append((data?[i])!)
                     }
                 }
             }
