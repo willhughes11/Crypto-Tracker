@@ -32,6 +32,7 @@ extension FavoriteCryptoTableView {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cryptoCell", for: indexPath) as! TableCellView
         if loading {
+            cell.selectionStyle = .none
         } else {
             if isFiltering{
                 let crypto = filteredCryptos[indexPath.row]

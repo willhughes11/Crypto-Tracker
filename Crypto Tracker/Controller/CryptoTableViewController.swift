@@ -30,18 +30,18 @@ class CryptoTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator()
-        loadTableCell()
         searchBarParams()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        loadTableCell()
     }
     
     //MARK: - Data Loading Functions
     
     func loadTableCell(){
         CryptoClient.getTableCellData(completionHandler: { data, error in
-            if (error != nil) {
-                self.showAlert()
-            }
-            
             self.cellData = data
             self.loading = false
             
@@ -51,6 +51,13 @@ class CryptoTableViewController: UITableViewController {
                 self.tableView.reloadData()
             }
         })
+    }
+    
+    func handleResponse(response: TableCellData?, error: Error?){
+        guard error == nil , response != nil else {
+            showError(title: "Error1", message: error?.localizedDescription ?? "try again later")
+            return
+        }
     }
     
     func setColor(label: UILabel){
@@ -98,12 +105,10 @@ class CryptoTableViewController: UITableViewController {
     
     //MARK: - Alert Functions
     
-    func showAlert(){
-        let alert:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
-        alert.title = "Network Failure"
-        alert.message = "Can't connect to API"
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-        self.present(alert, animated: true, completion: nil)
+    func showError(title: String, message: String){
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okButton = UIAlertAction(title: "Okay", style: .default, handler: nil)
+        alertController.addAction(okButton)
+        present(alertController, animated: true, completion: nil)
     }
 }
-

@@ -15,6 +15,7 @@ class CMCClient {
     var cryptoTrackerId: [String] = []
     var numString: String = ""
     var cryptoLogo: UIImage!
+    let alert:UIAlertController = UIAlertController()
     
     //MARK: - Authorization Keys
     
@@ -56,10 +57,21 @@ class CMCClient {
     func getAllCryptoIds(completionHandler: @escaping ([String]?, Error?) -> Void){
         let request = URLRequest(url: Endpoints.allCrytptos.url)
         let task = URLSession.shared.dataTask(with: request, completionHandler: { [self] data, response, error in
+            if (error != nil){
+                print("Network Issue")
+                DispatchQueue.main.async {
+                let alertController = UIAlertController(title: "Error", message: error?.localizedDescription, preferredStyle: .alert)
+                    let okButton = UIAlertAction(title: "Okay", style: .default, handler: nil)
+                    alertController.addAction(okButton)
+                    UIApplication.shared.windows.filter {$0.isKeyWindow}.first?.rootViewController?.present(alertController, animated: true, completion: nil)
+                }
+            }
         guard let data = data, error == nil else {
+            DispatchQueue.main.async {
+                completionHandler(nil, error)
+            }
             return
         }
-        
         var result: CoinMarketCapIdMap?
         do {
             result = try JSONDecoder().decode(CoinMarketCapIdMap.self, from: data)
@@ -71,8 +83,6 @@ class CMCClient {
                 cryptoTrackerId.append(String(json.data[i].id))
                 }
             }
-
-            
             DispatchQueue.main.async {
                 completionHandler(cryptoTrackerId, nil)
             }
@@ -135,7 +145,7 @@ class CMCClient {
                 } catch {
                     DispatchQueue.main.async {
                         completionHandler(nil, error)
-                        print("Error: \(error)")
+                        //print("Error: \(error.localizedDescription)")
                     }
                 }
             })
@@ -180,5 +190,4 @@ class CMCClient {
             }
         }
     }
-    
     }

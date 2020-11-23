@@ -16,5 +16,12 @@ When you add cryptocurrenies to your watchlist you can find them here.
 When you select a table cell, you're segued to the Detail View. You can add the cryptocurrency to the Watchlist by pressing the plus-sign in top right hand corner.
 ## Limitations
 This app uses the sandbox CoinMarketCap API Endpoint and Key. This app makes a lot of API request to get the data needed to make this app functional. You can sign up and replace the test API Key with your own, if you want to see real time data.
+## App Information
+### Version
+iOS: 14.0 +
+XCode: 12.0 +
+Swfif: 5+
+## Libraries
+* SDWebImage
 ## CoinMarketCap API
 The CoinMarketCap API was used to make this app, https://coinmarketcap.com/api/

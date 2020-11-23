@@ -30,8 +30,10 @@ extension CryptoTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cryptoCell", for: indexPath) as! TableCellView
+        //self.tableView.register(TableCellView.self, forCellReuseIdentifier: "cryptoCell")
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cryptoCell", for: indexPath) as! TableCellView
         if loading {
+            cell.selectionStyle = .none
         } else {
             if isFiltering{
                 let crypto = filteredCryptos[indexPath.row]
@@ -82,12 +84,15 @@ extension CryptoTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isFiltering{
-            let selectedCrypto = [filteredCryptos[indexPath.row]]
-            self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
+        if loading{
         } else {
-            let selectedCrypto = [cellData[indexPath.row]]
-            self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
+            if isFiltering{
+                let selectedCrypto = [filteredCryptos[indexPath.row]]
+                self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
+            } else {
+                let selectedCrypto = [cellData[indexPath.row]]
+                self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
+            }
         }
     }
     
