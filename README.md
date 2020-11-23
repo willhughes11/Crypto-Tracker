@@ -7,11 +7,11 @@ The Cryptocurrency Tracker App allows you to track your favorite cryptocurrencie
 
 When you open the Cryptocurrency Tracker app, you're presented with the Top 1,500 cryptocurrenies.
 ### Crypotcurrency Watchlist View
-![Watchlist View Bitcoin Unsaved](images/CryptoAppDetails-Unfavorited.png "Watchlist View Bitcoin Unsaved") ![Watchlist View Bitcoin Saved](images/CryptoAppDetails-Favorited.png "Watchlist View Bitcoin Saved")
+![Watchlist View Bitcoin Unsaved](images/CryptoAppWatchlist-BitcoinNotSaved.png "Watchlist View Bitcoin Unsaved") ![Watchlist View Bitcoin Saved](images/CryptoAppWatchlist-BitcoinSaved.png "Watchlist View Bitcoin Saved")
 
 When you add cryptocurrenies to your watchlist you can find them here.
 ### Cryptocurrency Detail View
-![Detail View Bitcoin Unsaved](images/CryptoAppWatchlist-BitcoinNotSaved.png "Detail View Bitcoin Unsaved") ![Detail View Bitcoin Saved](images/CryptoAppWatchlist-BitcoinSaved.png "Detail View Bitcoin Saved")
+![Detail View Bitcoin Unsaved](images/CryptoAppDetails-Unfavorited.png "Detail View Bitcoin Unsaved") ![Detail View Bitcoin Saved](images/CryptoAppDetails-Favorited.png "Detail View Bitcoin Saved")
 
 When you select a table cell, you're segued to the Detail View. You can add the cryptocurrency to the Watchlist by pressing the plus-sign in top right hand corner.
 ## Limitations
