@@ -31,11 +31,11 @@ class CMCClient {
         var stringValue: String {
             switch self {
             case .allCrytptos: return
-                "\(Endpoints.testBase)/map?CMC_PRO_API_KEY=\(Auth.testKey)&limit=1250&sort=cmc_rank"
+                "\(Endpoints.base)/map?CMC_PRO_API_KEY=\(Auth.key)&limit=1250&sort=cmc_rank"
             case .cryptoDetails(let id): return
-                "\(Endpoints.testBase)/info?CMC_PRO_API_KEY=\(Auth.testKey)&id=\(id)"
+                "\(Endpoints.base)/info?CMC_PRO_API_KEY=\(Auth.key)&id=\(id)"
             case .cryptoQuoteLatest(let id): return
-                "\(Endpoints.testBase)/quotes/latest?CMC_PRO_API_KEY=\(Auth.testKey)&id=\(id)"
+                "\(Endpoints.base)/quotes/latest?CMC_PRO_API_KEY=\(Auth.key)&id=\(id)"
             }
         }
         
