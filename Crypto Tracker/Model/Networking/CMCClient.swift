@@ -10,14 +10,20 @@ import UIKit
 
 class CMCClient {
     
+    // MARK: - Properties: Variables and Constants
+    
     var cryptoTrackerId: [String] = []
     var numString: String = ""
     var cryptoLogo: UIImage!
+    
+    //MARK: - Authorization Keys
     
     struct Auth {
         static let key: String = "664d22ac-4c54-42a0-86d5-13b8239469d3"
         static let testKey: String = "b54bcf4d-1bca-4e8e-9a24-22ff2c3d462c"
     }
+    
+    //MARK: - Endpoint Urls
     
     enum Endpoints {
         
@@ -31,11 +37,11 @@ class CMCClient {
         var stringValue: String {
             switch self {
             case .allCrytptos: return
-                "\(Endpoints.base)/map?CMC_PRO_API_KEY=\(Auth.key)&limit=1250&sort=cmc_rank"
+                "\(Endpoints.testBase)/map?CMC_PRO_API_KEY=\(Auth.testKey)&limit=1250&sort=cmc_rank"
             case .cryptoDetails(let id): return
-                "\(Endpoints.base)/info?CMC_PRO_API_KEY=\(Auth.key)&id=\(id)"
+                "\(Endpoints.testBase)/info?CMC_PRO_API_KEY=\(Auth.testKey)&id=\(id)"
             case .cryptoQuoteLatest(let id): return
-                "\(Endpoints.base)/quotes/latest?CMC_PRO_API_KEY=\(Auth.key)&id=\(id)"
+                "\(Endpoints.testBase)/quotes/latest?CMC_PRO_API_KEY=\(Auth.testKey)&id=\(id)"
             }
         }
         
@@ -44,6 +50,8 @@ class CMCClient {
         }
         
     }
+    
+    //MARK: - CoinMarketCap ID Map
     
     func getAllCryptoIds(completionHandler: @escaping ([String]?, Error?) -> Void){
         let request = URLRequest(url: Endpoints.allCrytptos.url)
@@ -79,6 +87,8 @@ class CMCClient {
         task.resume()
     }
     
+    //MARK: - Metadata
+    
     func allCryptoDetails(completionHandler: @escaping (Metadata?, Error?) -> Void){
         self.getAllCryptoIds(){ [self]data,error in
             cryptoTrackerId = data ?? ["1"]
@@ -105,6 +115,8 @@ class CMCClient {
         }
     }
     
+    //MARK: - Quotes Latest
+    
     func getCryptoQuoteData(completionHandler: @escaping (QuoteLatest?, Error?) -> Void){
         self.getAllCryptoIds(){ [self]data,error in
             cryptoTrackerId = data ?? ["1"]
@@ -130,6 +142,8 @@ class CMCClient {
             task.resume()
         }
     }
+    
+    //MARK: - Table Cell Data Functions
     
     func getTableCellData(completionHandler: @escaping ([TableCellData], Error?) -> Void){
         var cellData = [TableCellData]()

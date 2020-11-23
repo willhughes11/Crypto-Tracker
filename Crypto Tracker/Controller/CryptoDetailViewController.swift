@@ -11,6 +11,8 @@ import CoreData
 
 class CryptoDetailViewController: UIViewController {
     
+    // MARK: - Properties: Variables and Constants
+    
     var selectedCrypto = [TableCellData]()
     var addedToWatchlist = false
     
@@ -31,11 +33,15 @@ class CryptoDetailViewController: UIViewController {
     @IBOutlet var rank: UITextView!
     @IBOutlet weak var addToWatchlistButton: UIBarButtonItem!
     
+    //MARK: - Override Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         checkIfAddedToWatchlist()
         loadDetailData()
     }
+    
+    //MARK: - IBActions
     
     @IBAction func addCryptoToWatchlist(_ sender: UIBarButtonItem) {
         if addedToWatchlist == false {

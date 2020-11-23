@@ -11,6 +11,8 @@ import SDWebImage
 
 extension CryptoTableViewController {
     
+    //MARK: - Override Table View Functions
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if loading{
             return 1
@@ -95,6 +97,7 @@ extension CryptoTableViewController {
         }
     }
 }
+//MARK: - Searchbar Extension
 
 extension CryptoTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {

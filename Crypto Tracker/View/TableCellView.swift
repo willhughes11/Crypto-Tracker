@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 class TableCellView: UITableViewCell {
+    
+    // MARK: - Outlets
+    
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var symbol: UILabel!
     @IBOutlet weak var name: UILabel!

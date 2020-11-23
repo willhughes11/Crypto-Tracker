@@ -12,6 +12,8 @@ import SDWebImage
 
 class FavoriteCryptoTableView: UITableViewController {
     
+    // MARK: - Properties: Variables and Constants
+    
     let CryptoClient = CMCClient()
     let numberFormatter = NumberFormatter()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -28,6 +30,7 @@ class FavoriteCryptoTableView: UITableViewController {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
+    //MARK: - Override Functions
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +43,8 @@ class FavoriteCryptoTableView: UITableViewController {
         getWatchlistCryptos()
         loadTableCell()
     }
+    
+    //MARK: - Functions
 
     func getWatchlistCryptos(){
         let context = appDelegate.persistentContainer.viewContext
@@ -65,6 +70,9 @@ class FavoriteCryptoTableView: UITableViewController {
     
     func loadTableCell(){
         CryptoClient.getTableCellData(completionHandler: { data, error in
+            if (error != nil) {
+                self.showAlert()
+            }
             for i in 0...data.count-1{
                 if(self.watchlistIds.contains(data[i].id)){
                     if(self.cellData.contains(where: {$0.id == data[i].id}) == false){
@@ -122,5 +130,13 @@ class FavoriteCryptoTableView: UITableViewController {
     
     var isFiltering: Bool {
       return searchController.isActive && !isSearchBarEmpty
+    }
+    
+    func showAlert(){
+        let alert:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alert.title = "Network Failure"
+        alert.message = "Can't connect to API"
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
     }
 }

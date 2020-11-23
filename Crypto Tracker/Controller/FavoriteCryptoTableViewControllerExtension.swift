@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 
 extension FavoriteCryptoTableView {
+    
+    //MARK: - Override Table View Functions
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if loading{
             return 1
@@ -93,6 +96,8 @@ extension FavoriteCryptoTableView {
         }
     }
 }
+
+//MARK: - Searchbar Extension
 
 extension FavoriteCryptoTableView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {

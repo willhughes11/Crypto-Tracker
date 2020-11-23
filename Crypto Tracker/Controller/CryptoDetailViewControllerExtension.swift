@@ -11,10 +11,15 @@ import CoreData
 import SDWebImage
 
 extension CryptoDetailViewController{
+    
+    //MARK: - Functions
+    
     func loadDetailData(){
         formatNumberData()
         formatStringData()
     }
+    
+    //MARK: - Number Formatting Function
     
     func formatNumberData(){
         numberFormatter.numberStyle = .currency
@@ -35,6 +40,8 @@ extension CryptoDetailViewController{
         totalSupply.text = "\(totalSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? "N/A")"
         maxSupply.text = "\(maxSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? "N/A")"
     }
+    
+    //MARK: - String Formatting Function
     
     func formatStringData(){
         let rankVar = String(selectedCrypto.first?.cmc_rank ?? 0)
@@ -59,6 +66,8 @@ extension CryptoDetailViewController{
         }
     }
     
+    //MARK: - Alert Functions
+    
     func showLinkAlert(link: String){
         let alert:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
         alert.title = "\(link) Unavailable"
@@ -74,6 +83,8 @@ extension CryptoDetailViewController{
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
+    
+    //MARK: - Watchlist Logic Functions
     
     func checkIfAddedToWatchlist(){
         let context = appDelegate.persistentContainer.viewContext

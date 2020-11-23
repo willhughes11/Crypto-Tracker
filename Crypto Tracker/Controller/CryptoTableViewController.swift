@@ -9,6 +9,8 @@ import UIKit
 
 class CryptoTableViewController: UITableViewController {
     
+    // MARK: - Properties: Variables and Constants
+    
     let CryptoClient = CMCClient()
     let numberFormatter = NumberFormatter()
     let searchController = UISearchController(searchResultsController: nil)
@@ -23,6 +25,8 @@ class CryptoTableViewController: UITableViewController {
         return searchController.searchBar.text?.isEmpty ?? true
     }
     
+    //MARK: - Override Functions
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator()
@@ -30,8 +34,14 @@ class CryptoTableViewController: UITableViewController {
         searchBarParams()
     }
     
+    //MARK: - Data Loading Functions
+    
     func loadTableCell(){
         CryptoClient.getTableCellData(completionHandler: { data, error in
+            if (error != nil) {
+                self.showAlert()
+            }
+            
             self.cellData = data
             self.loading = false
             
@@ -65,6 +75,8 @@ class CryptoTableViewController: UITableViewController {
         }
     }
     
+    //MARK: - Searchbar Functions
+    
     func filterContentForSearchText(_ searchText: String){
         filteredCryptos = self.cellData.filter{ (cellData: TableCellData) -> Bool in
             return cellData.name.lowercased().contains(searchText.lowercased())
@@ -84,6 +96,14 @@ class CryptoTableViewController: UITableViewController {
       return searchController.isActive && !isSearchBarEmpty
     }
     
+    //MARK: - Alert Functions
     
+    func showAlert(){
+        let alert:UIAlertController = UIAlertController(title: "", message: "", preferredStyle: .alert)
+        alert.title = "Network Failure"
+        alert.message = "Can't connect to API"
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
 }
 

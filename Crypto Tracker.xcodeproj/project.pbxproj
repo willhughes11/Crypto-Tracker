@@ -18,7 +18,6 @@
 		CCB2DEDB255A155A00F95561 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCB2DED9255A155A00F95561 /* Main.storyboard */; };
 		CCB2DEDD255A155C00F95561 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CCB2DEDC255A155C00F95561 /* Assets.xcassets */; };
 		CCB2DEE0255A155C00F95561 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCB2DEDE255A155C00F95561 /* LaunchScreen.storyboard */; };
-		CCB2DEEC255A187A00F95561 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DEEB255A187A00F95561 /* DataController.swift */; };
 		CCB2DEF0255A189200F95561 /* Crypto_Tracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DEEE255A189200F95561 /* Crypto_Tracker.xcdatamodeld */; };
 		CCB2DEFB255A199600F95561 /* CMCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DEFA255A199600F95561 /* CMCClient.swift */; };
 		CCB2DEFE255A19DA00F95561 /* CMCResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DEFD255A19DA00F95561 /* CMCResponse.swift */; };
@@ -39,7 +38,6 @@
 		CCB2DEDC255A155C00F95561 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCB2DEDF255A155C00F95561 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CCB2DEE1255A155C00F95561 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCB2DEEB255A187A00F95561 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		CCB2DEEF255A189200F95561 /* Crypto_Tracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Crypto_Tracker.xcdatamodel; sourceTree = "<group>"; };
 		CCB2DEFA255A199600F95561 /* CMCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMCClient.swift; sourceTree = "<group>"; };
 		CCB2DEFD255A19DA00F95561 /* CMCResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CMCResponse.swift; sourceTree = "<group>"; };
@@ -96,7 +94,6 @@
 			isa = PBXGroup;
 			children = (
 				CCB2DEF4255A196D00F95561 /* Networking */,
-				CCB2DEEB255A187A00F95561 /* DataController.swift */,
 				CCB2DEEE255A189200F95561 /* Crypto_Tracker.xcdatamodeld */,
 			);
 			path = Model;
@@ -227,7 +224,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CCB2DED8255A155A00F95561 /* CryptoTableViewController.swift in Sources */,
-				CCB2DEEC255A187A00F95561 /* DataController.swift in Sources */,
 				CCB2DF02255A1FF600F95561 /* FavoriteCryptoTableViewController.swift in Sources */,
 				CCB2DEFE255A19DA00F95561 /* CMCResponse.swift in Sources */,
 				CC5E36F32568D0CA000E5C2E /* CryptoDetailViewControllerExtension.swift in Sources */,
