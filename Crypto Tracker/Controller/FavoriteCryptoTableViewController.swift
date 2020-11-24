@@ -14,26 +14,17 @@ class FavoriteCryptoTableView: UITableViewController {
     
     // MARK: - Properties: Variables and Constants
     
+    let CryptoClient = CMCClient()
     let numberFormatter = NumberFormatter()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let searchController = UISearchController(searchResultsController: nil)
     
     var cellData = [TableCellData]()
-    var loading = false
+    var loading = true
     var watchlistIds: [Int] = []
-    var filteredCryptos: [Cryptocurrency] = []
+    var filteredCryptos: [TableCellData] = []
     var returnValue = true
     var indicator = UIActivityIndicatorView(style: .large)
-    
-    lazy var fetchedResultsController: NSFetchedResultsController<Cryptocurrency> = {
-        let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest: NSFetchRequest<Cryptocurrency> = Cryptocurrency.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "cmc_rank", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
-        fetchedResultsController.delegate = self
-        return fetchedResultsController
-    }()
     
     var isSearchBarEmpty: Bool {
         return searchController.searchBar.text?.isEmpty ?? true
@@ -44,17 +35,62 @@ class FavoriteCryptoTableView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator()
-        //searchBarParams()
-        try? fetchedResultsController.performFetch()
+        searchBarParams()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        self.tableView.reloadData()
+        getWatchlistCryptos()
+        loadTableCell()
     }
     
     //MARK: - Functions
+
+    func getWatchlistCryptos(){
+        let context = appDelegate.persistentContainer.viewContext
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Cryptocurrency")
+                request.returnsObjectsAsFaults = false
+                do {
+                    let result = try context.fetch(request)
+                    var coreDataArray:[Int] = []
+                    for data in result as! [NSManagedObject] {
+                        coreDataArray.append(data.value(forKey: "id") as! Int)
+                        if(watchlistIds.contains(data.value(forKey: "id") as! Int) == false){
+                            watchlistIds.append(data.value(forKey: "id") as! Int)
+                        }
+                    }
+                    watchlistIds.sort()
+                    coreDataArray.sort()
+                    watchlistIds = watchlistIds.filter{ coreDataArray.contains($0)}
+                } catch {
+                    
+                    print("Failed")
+                }
+        }
     
+    func loadTableCell(){
+        CryptoClient.getTableCellData(completionHandler: { data, error in
+            if (error != nil) {
+                self.showAlert()
+            }
+            for i in 0...data!.count-1{
+                if(self.watchlistIds.contains((data?[i].id)!)){
+                    if(self.cellData.contains(where: {$0.id == data?[i].id}) == false){
+                        self.cellData.append((data?[i])!)
+                    }
+                }
+            }
+            self.cellData = self.cellData.filter{ self.watchlistIds.contains($0.id)}
+
+            self.loading = false
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+                self.indicator.hidesWhenStopped = true
+                self.tableView.reloadData()
+            }
+        })
+    }
+        
     func setColor(label: UILabel){
         if let text = label.text?.dropLast(), let value = Float(text) {
             if value < 0{
@@ -78,17 +114,17 @@ class FavoriteCryptoTableView: UITableViewController {
     }
     
     func filterContentForSearchText(_ searchText: String){
-        filteredCryptos = (self.fetchedResultsController.fetchedObjects?.filter{ (cellData: Cryptocurrency) -> Bool in
-            return (cellData.name?.lowercased().contains(searchText.lowercased()))!
-        })!
-        filteredCryptos += (self.fetchedResultsController.fetchedObjects?.filter{(cellData: Cryptocurrency) -> Bool in
-            if(cellData.name?.lowercased().contains(cellData.symbol?.lowercased() ?? searchText.lowercased()) == false){
-                self.returnValue = ((cellData.symbol?.lowercased().contains(searchText.lowercased())) != nil)
+        filteredCryptos = self.cellData.filter{ (cellData: TableCellData) -> Bool in
+            return cellData.name.lowercased().contains(searchText.lowercased())
+        }
+        filteredCryptos += self.cellData.filter{(cellData: TableCellData) -> Bool in
+            if(cellData.name.lowercased().contains(cellData.symbol.lowercased()) == false){
+                self.returnValue = cellData.symbol.lowercased().contains(searchText.lowercased())
             } else{
                 self.returnValue = false
             }
             return returnValue
-        })!
+        }
         self.tableView.reloadData()
     }
     

@@ -14,7 +14,6 @@ class CryptoDetailViewController: UIViewController {
     // MARK: - Properties: Variables and Constants
     
     var selectedCrypto = [TableCellData]()
-    var selectedFavoriteCrypto = [Cryptocurrency]()
     var addedToWatchlist = false
     
     let numberFormatter = NumberFormatter()
@@ -60,7 +59,7 @@ class CryptoDetailViewController: UIViewController {
     }
     
     @IBAction func websiteLink(_ sender: Any) {
-        if let url = NSURL(string: (selectedCrypto.first?.website ?? selectedFavoriteCrypto.first?.website) ?? "N/A"){
+        if let url = NSURL(string: selectedCrypto.first?.website ?? "N/A"){
             if(url == NSURL(string: "N/A")){
                 let link = "Website"
                 showLinkAlert(link: link)
@@ -71,7 +70,7 @@ class CryptoDetailViewController: UIViewController {
     }
     
     @IBAction func messageBoardLink(_ sender: Any) {
-        if let url = NSURL(string: (selectedCrypto.first?.message_board ?? selectedFavoriteCrypto.first?.message_board) ?? "N/A"){
+        if let url = NSURL(string: selectedCrypto.first?.message_board ?? "N/A"){
             if(url == NSURL(string: "N/A")){
                 let link = "Message Board"
                 showLinkAlert(link: link)
@@ -82,7 +81,7 @@ class CryptoDetailViewController: UIViewController {
     }
     
     @IBAction func sourceCodeLink(_ sender: Any) {
-        if let url = NSURL(string: (selectedCrypto.first?.source_code ?? selectedFavoriteCrypto.first?.source_code) ?? "N/A"){
+        if let url = NSURL(string: selectedCrypto.first?.source_code ?? "N/A"){
             if(url == NSURL(string: "N/A")){
                 let link = "Source Code Page"
                 showLinkAlert(link: link)
@@ -93,7 +92,7 @@ class CryptoDetailViewController: UIViewController {
     }
     
     @IBAction func technicalDocumentationLink(_ sender: Any) {
-        if let url = NSURL(string: (selectedCrypto.first?.technical_doc ?? selectedFavoriteCrypto.first?.technical_doc) ?? "N/A"){
+        if let url = NSURL(string: selectedCrypto.first?.technical_doc ?? "N/A"){
             if(url == NSURL(string: "N/A")){
                 let link = "Technical Document"
                 showLinkAlert(link: link)

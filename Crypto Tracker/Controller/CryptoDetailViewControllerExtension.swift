@@ -23,37 +23,37 @@ extension CryptoDetailViewController{
     
     func formatNumberData(){
         numberFormatter.numberStyle = .currency
-        let priceVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.price ?? Float(selectedFavoriteCrypto.first?.price ?? 0.0)))
+        let priceVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.price ?? 0.0))
         price.text = priceVar
         
         numberFormatter.maximumFractionDigits = 0
-        let marketCapVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.market_cap ?? Float(selectedFavoriteCrypto.first?.market_cap ?? 0.0)))
-        let volumeVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.volume_24h ?? Float(selectedFavoriteCrypto.first?.volume_24h ?? 0.0)))
+        let marketCapVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.market_cap ?? 0.0))
+        let volumeVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.volume_24h ?? 0.0))
         marketCap.text = marketCapVar
         volume.text = volumeVar
         
         numberFormatter.numberStyle = .decimal
-        let circSupplyVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.circulating_supply ?? Int(selectedFavoriteCrypto.first?.market_cap ?? 0)))
-        let totalSupplyVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.total_supply ?? Float(selectedFavoriteCrypto.first?.total_supply ?? 0.0)))
-        let maxSupplyVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.max_supply ?? Float(selectedFavoriteCrypto.first?.max_supply ?? 0.0)))
-        circSupply.text = "\(circSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? selectedFavoriteCrypto.first?.symbol ?? "N/A")"
-        totalSupply.text = "\(totalSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? selectedFavoriteCrypto.first?.symbol ?? "N/A")"
-        maxSupply.text = "\(maxSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? selectedFavoriteCrypto.first?.symbol ?? "N/A")"
+        let circSupplyVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.circulating_supply ?? 0))
+        let totalSupplyVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.total_supply ?? 0.0))
+        let maxSupplyVar = numberFormatter.string(from: NSNumber(value: selectedCrypto.first?.max_supply ?? 0.0))
+        circSupply.text = "\(circSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? "N/A")"
+        totalSupply.text = "\(totalSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? "N/A")"
+        maxSupply.text = "\(maxSupplyVar ?? "0") \(selectedCrypto.first?.symbol ?? "N/A")"
     }
     
     //MARK: - String Formatting Function
     
     func formatStringData(){
-        let rankVar = String(selectedCrypto.first?.cmc_rank ?? Int(selectedFavoriteCrypto.first?.cmc_rank ?? 0))
-        let url = String((selectedCrypto.first?.logo ?? selectedFavoriteCrypto.first?.logo) ?? "N/A")
+        let rankVar = String(selectedCrypto.first?.cmc_rank ?? 0)
+        let url = String(selectedCrypto.first?.logo ?? "N/A")
         let imageUrl:URL? = URL(string: url)
         logo.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "genericLogo.png"))
-        name.text = selectedCrypto.first?.name ?? selectedFavoriteCrypto.first?.name
-        symbol.text = "(\(selectedCrypto.first?.symbol ?? selectedFavoriteCrypto.first?.symbol ?? "N/A"))"
-        dayChange.text = String(format:"(%.2f%%)", Float((selectedCrypto.first?.percent_change_24h ?? selectedFavoriteCrypto.first?.percent_change_24h) ?? 0.0) )
+        name.text = selectedCrypto.first?.name
+        symbol.text = "(\(selectedCrypto.first?.symbol ?? "N/A"))"
+        dayChange.text = String(format:"(%.2f%%)", Float(selectedCrypto.first?.percent_change_24h ?? 0.0))
         setColor(label: dayChange)
         rank.text = "Rank \(rankVar)"
-        textView.text = String((selectedCrypto.first?.description ?? selectedFavoriteCrypto.first?.description) ?? "N/A")
+        textView.text = String(selectedCrypto.first?.description ?? "N/A")
     }
     
     func setColor(label: UILabel){
@@ -88,7 +88,7 @@ extension CryptoDetailViewController{
     
     func checkIfAddedToWatchlist(){
         let context = appDelegate.persistentContainer.viewContext
-        let id = selectedCrypto.first?.id ?? Int(selectedFavoriteCrypto.first?.id ?? 0)
+        let id = selectedCrypto.first?.id as! CVarArg
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Cryptocurrency")
         fetchRequest.predicate = NSPredicate(format: "id == %d", id)
         fetchRequest.returnsObjectsAsFaults = false
@@ -115,23 +115,6 @@ extension CryptoDetailViewController{
         saveCrypto.setValue(selectedCrypto.first?.id, forKey: "id")
         saveCrypto.setValue(selectedCrypto.first?.name, forKey: "name")
         saveCrypto.setValue(selectedCrypto.first?.symbol, forKey: "symbol")
-        saveCrypto.setValue(selectedCrypto.first?.category, forKey: "category")
-        saveCrypto.setValue(selectedCrypto.first?.circulating_supply, forKey: "circ_supply")
-        saveCrypto.setValue(selectedCrypto.first?.cmc_rank, forKey: "cmc_rank")
-        saveCrypto.setValue(selectedCrypto.first?.logo, forKey: "logo")
-        saveCrypto.setValue(selectedCrypto.first?.market_cap, forKey: "market_cap")
-        saveCrypto.setValue(selectedCrypto.first?.max_supply, forKey: "max_supply")
-        saveCrypto.setValue(selectedCrypto.first?.message_board, forKey: "message_board")
-        saveCrypto.setValue(selectedCrypto.first?.percent_change_1h, forKey: "percent_change_1h")
-        saveCrypto.setValue(selectedCrypto.first?.percent_change_24h, forKey: "percent_change_24h")
-        saveCrypto.setValue(selectedCrypto.first?.percent_change_7d, forKey: "percent_change_7d")
-        saveCrypto.setValue(selectedCrypto.first?.price, forKey: "price")
-        saveCrypto.setValue(selectedCrypto.first?.source_code, forKey: "source_code")
-        saveCrypto.setValue(selectedCrypto.first?.description, forKey: "summary")
-        saveCrypto.setValue(selectedCrypto.first?.technical_doc, forKey: "technical_doc")
-        saveCrypto.setValue(selectedCrypto.first?.total_supply, forKey: "total_supply")
-        saveCrypto.setValue(selectedCrypto.first?.volume_24h, forKey: "volume_24h")
-        saveCrypto.setValue(selectedCrypto.first?.website, forKey: "website")
         
         do {
             try context.save()
@@ -151,7 +134,7 @@ extension CryptoDetailViewController{
             let items = try context.fetch(fetchRequest) as! [NSManagedObject]
 
             for item in items {
-                if(item.value(forKey: "id") as? Int == selectedCrypto.first?.id ?? Int(selectedFavoriteCrypto.first?.id ?? 0)){
+                if(item.value(forKey: "id") as? Int == selectedCrypto.first?.id){
                     context.delete(item)
                 }
             }
