@@ -18,18 +18,18 @@ extension FavoriteCryptoTableView {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isFiltering{
+        /*if isFiltering{
             print(filteredCryptos.count)
             return filteredCryptos.count
-        } else {
+        } else {*/
             return fetchedResultsController.fetchedObjects?.count ?? 0
-        }
+        //}
         
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cryptoCell", for: indexPath) as! TableCellView
-        if loading {
+        /*if loading {
             cell.selectionStyle = .none
         } else {
             if isFiltering{
@@ -53,7 +53,7 @@ extension FavoriteCryptoTableView {
                 setColor(label: cell.hourChange)
                 setColor(label: cell.dayChange)
                 setColor(label: cell.weekChange)
-            } else {
+            } else {*/
                 let crypto = fetchedResultsController.fetchedObjects?[indexPath.row]
                 let imageUrl:URL? = URL(string: crypto?.logo ?? "N/A")
                 cell.logo.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "genericLogo.png"))
@@ -74,19 +74,19 @@ extension FavoriteCryptoTableView {
                 setColor(label: cell.hourChange)
                 setColor(label: cell.dayChange)
                 setColor(label: cell.weekChange)
-            }
-        }
+            //}
+        //}
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if isFiltering{
+        /*if isFiltering{
             let selectedCrypto = [filteredCryptos[indexPath.row]]
             self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
-        } else {
+        } else {*/
             let selectedCrypto = [fetchedResultsController.fetchedObjects?[indexPath.row]]
             self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
-        }
+        //}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -116,7 +116,7 @@ extension FavoriteCryptoTableView: NSFetchedResultsControllerDelegate {
 }
 
 //MARK: - Temporarily Removed Searchbar Feature
-
+/*
 extension FavoriteCryptoTableView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
@@ -131,3 +131,4 @@ extension FavoriteCryptoTableView: UISearchResultsUpdating {
         definesPresentationContext = true
     }
 }
+*/
