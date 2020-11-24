@@ -44,7 +44,7 @@ class FavoriteCryptoTableView: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator()
-        searchBarParams()
+        //searchBarParams()
         try? fetchedResultsController.performFetch()
     }
     
