@@ -24,12 +24,15 @@
 		CCB2DF02255A1FF600F95561 /* FavoriteCryptoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DF01255A1FF600F95561 /* FavoriteCryptoTableViewController.swift */; };
 		CCB2DF05255A250300F95561 /* TableCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB2DF04255A250300F95561 /* TableCellView.swift */; };
 		CCBE19CD2561DC9400434350 /* CryptoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCBE19CC2561DC9400434350 /* CryptoDetailViewController.swift */; };
+		CCCD3912256C7918002FBA3B /* MappingModelV2toV3.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = CCCD3911256C7918002FBA3B /* MappingModelV2toV3.xcmappingmodel */; };
+		CCCD391C256C7D24002FBA3B /* MappingModelV3tov4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = CCCD391B256C7D24002FBA3B /* MappingModelV3tov4.xcmappingmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		CC5E36F22568D0C9000E5C2E /* CryptoDetailViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailViewControllerExtension.swift; sourceTree = "<group>"; };
 		CC6A7F3E25660B8A0092C69D /* CryptoTableViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoTableViewControllerExtension.swift; sourceTree = "<group>"; };
 		CC9DD9CB256B1A4800CBC48D /* FavoriteCryptoTableViewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCryptoTableViewControllerExtension.swift; sourceTree = "<group>"; };
+		CC9DD9D1256C597B00CBC48D /* Crypto_Tracker_2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Crypto_Tracker_2.xcdatamodel; sourceTree = "<group>"; };
 		CCB2DED0255A155A00F95561 /* Crypto Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Crypto Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB2DED3255A155A00F95561 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CCB2DED5255A155A00F95561 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -44,6 +47,10 @@
 		CCB2DF01255A1FF600F95561 /* FavoriteCryptoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCryptoTableViewController.swift; sourceTree = "<group>"; };
 		CCB2DF04255A250300F95561 /* TableCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableCellView.swift; sourceTree = "<group>"; };
 		CCBE19CC2561DC9400434350 /* CryptoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailViewController.swift; sourceTree = "<group>"; };
+		CCCD3904256C72AD002FBA3B /* Crypto_Tracker_ 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Crypto_Tracker_ 3.xcdatamodel"; sourceTree = "<group>"; };
+		CCCD3911256C7918002FBA3B /* MappingModelV2toV3.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModelV2toV3.xcmappingmodel; sourceTree = "<group>"; };
+		CCCD391A256C7CF8002FBA3B /* Crypto_Tracker_ 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Crypto_Tracker_ 4.xcdatamodel"; sourceTree = "<group>"; };
+		CCCD391B256C7D24002FBA3B /* MappingModelV3tov4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModelV3tov4.xcmappingmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +149,8 @@
 			children = (
 				CCB2DEFA255A199600F95561 /* CMCClient.swift */,
 				CCB2DEFD255A19DA00F95561 /* CMCResponse.swift */,
+				CCCD391B256C7D24002FBA3B /* MappingModelV3tov4.xcmappingmodel */,
+				CCCD3911256C7918002FBA3B /* MappingModelV2toV3.xcmappingmodel */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -228,10 +237,12 @@
 				CCB2DEFE255A19DA00F95561 /* CMCResponse.swift in Sources */,
 				CC5E36F32568D0CA000E5C2E /* CryptoDetailViewControllerExtension.swift in Sources */,
 				CCBE19CD2561DC9400434350 /* CryptoDetailViewController.swift in Sources */,
+				CCCD3912256C7918002FBA3B /* MappingModelV2toV3.xcmappingmodel in Sources */,
 				CCB2DED4255A155A00F95561 /* AppDelegate.swift in Sources */,
 				CCB2DEFB255A199600F95561 /* CMCClient.swift in Sources */,
 				CCB2DF05255A250300F95561 /* TableCellView.swift in Sources */,
 				CCB2DED6255A155A00F95561 /* SceneDelegate.swift in Sources */,
+				CCCD391C256C7D24002FBA3B /* MappingModelV3tov4.xcmappingmodel in Sources */,
 				CC9DD9CC256B1A4800CBC48D /* FavoriteCryptoTableViewControllerExtension.swift in Sources */,
 				CCB2DEF0255A189200F95561 /* Crypto_Tracker.xcdatamodeld in Sources */,
 				CC6A7F3F25660B8A0092C69D /* CryptoTableViewControllerExtension.swift in Sources */,
@@ -465,9 +476,12 @@
 		CCB2DEEE255A189200F95561 /* Crypto_Tracker.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				CCCD391A256C7CF8002FBA3B /* Crypto_Tracker_ 4.xcdatamodel */,
+				CCCD3904256C72AD002FBA3B /* Crypto_Tracker_ 3.xcdatamodel */,
+				CC9DD9D1256C597B00CBC48D /* Crypto_Tracker_2.xcdatamodel */,
 				CCB2DEEF255A189200F95561 /* Crypto_Tracker.xcdatamodel */,
 			);
-			currentVersion = CCB2DEEF255A189200F95561 /* Crypto_Tracker.xcdatamodel */;
+			currentVersion = CCCD391A256C7CF8002FBA3B /* Crypto_Tracker_ 4.xcdatamodel */;
 			path = Crypto_Tracker.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

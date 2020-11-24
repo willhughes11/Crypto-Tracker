@@ -13,20 +13,18 @@ extension FavoriteCryptoTableView {
     
     //MARK: - Override Table View Functions
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if loading{
-            return 1
-        } else {
-            if isFiltering{
-                return filteredCryptos.count
-            } else {
-                return cellData.count
-            }
-        }
-    }
-    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 150
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFiltering{
+            print(filteredCryptos.count)
+            return filteredCryptos.count
+        } else {
+            return fetchedResultsController.fetchedObjects?.count ?? 0
+        }
+        
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -36,7 +34,7 @@ extension FavoriteCryptoTableView {
         } else {
             if isFiltering{
                 let crypto = filteredCryptos[indexPath.row]
-                let imageUrl:URL? = URL(string: crypto.logo)
+                let imageUrl:URL? = URL(string: crypto.logo ?? "N/A")
                 cell.logo.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "genericLogo.png"))
                 cell.symbol.text = crypto.symbol
                 cell.name.text = crypto.name
@@ -56,16 +54,16 @@ extension FavoriteCryptoTableView {
                 setColor(label: cell.dayChange)
                 setColor(label: cell.weekChange)
             } else {
-                let crypto = cellData[indexPath.row]
-                let imageUrl:URL? = URL(string: crypto.logo)
+                let crypto = fetchedResultsController.fetchedObjects?[indexPath.row]
+                let imageUrl:URL? = URL(string: crypto?.logo ?? "N/A")
                 cell.logo.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "genericLogo.png"))
-                cell.symbol.text = crypto.symbol
-                cell.name.text = crypto.name
+                cell.symbol.text = crypto?.symbol ?? "N/A"
+                cell.name.text = crypto?.name
                 numberFormatter.numberStyle = .currency
-                cell.price.text = numberFormatter.string(from: NSNumber(value: crypto.price ))
-                cell.hourChange.text = String(format:"%.2f%%",crypto.percent_change_1h)
-                cell.dayChange.text = String(format:"%.2f%%",crypto.percent_change_24h)
-                cell.weekChange.text = String(format:"%.2f%%",crypto.percent_change_7d)
+                cell.price.text = numberFormatter.string(from: NSNumber(value: crypto?.price ?? 0.0 ))
+                cell.hourChange.text = String(format:"%.2f%%",crypto?.percent_change_1h ?? 0.0)
+                cell.dayChange.text = String(format:"%.2f%%",crypto?.percent_change_24h ?? 0.0)
+                cell.weekChange.text = String(format:"%.2f%%",crypto?.percent_change_7d ?? 0.0)
             
                 cell.symbol.font = UIFont(name:"HelveticaNeue-Bold",size: 20.0)
                 cell.price.font = UIFont(name:"HelveticaNeue-Bold",size: 20.0)
@@ -86,19 +84,38 @@ extension FavoriteCryptoTableView {
             let selectedCrypto = [filteredCryptos[indexPath.row]]
             self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
         } else {
-            let selectedCrypto = [cellData[indexPath.row]]
+            let selectedCrypto = [fetchedResultsController.fetchedObjects?[indexPath.row]]
             self.performSegue(withIdentifier: "selectedCrypto", sender: selectedCrypto)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? CryptoDetailViewController, let detailToSend = sender as? [TableCellData] {
-            vc.selectedCrypto = detailToSend
+        if let vc = segue.destination as? CryptoDetailViewController, let detailToSend = sender as? [Cryptocurrency] {
+            vc.selectedFavoriteCrypto = detailToSend
+        }
+    }
+    
+}
+
+extension FavoriteCryptoTableView: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            guard let newIndexPath = newIndexPath else {
+                return
+            }
+            let adjustedIndexPath = IndexPath(row: newIndexPath.row, section: 0)
+            tableView.insertRows(at: [adjustedIndexPath], with: .fade)
+            if let firstIndexPath = tableView.indexPathsForVisibleRows?.first {
+                tableView.reloadRows(at: [firstIndexPath], with: .fade)
+            }
+        default:
+            break
         }
     }
 }
 
-//MARK: - Searchbar Extension
+//MARK: - Temporarily Removed Searchbar Feature
 
 extension FavoriteCryptoTableView: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
@@ -110,7 +127,7 @@ extension FavoriteCryptoTableView: UISearchResultsUpdating {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Cryptocurrencies"
-        navigationItem.searchController = searchController
+        //navigationItem.searchController = searchController
         definesPresentationContext = true
     }
 }
