@@ -11,7 +11,7 @@ import CoreData
 
 extension FavoriteCryptoTableView {
     
-    //MARK: - Override Table View Functions
+//MARK: - Override Table View Functions
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if loading{
