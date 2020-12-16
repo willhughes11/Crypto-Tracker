@@ -20,7 +20,7 @@ This app uses the sandbox CoinMarketCap API Endpoint and Key. This app makes a l
 ### Version Info
 * iOS: 14.0 +
 * XCode: 12.0 +
-* Swfif: 5+
+* Swfit: 5+
 ## Libraries Used
 * UIKit
 * CoreData
